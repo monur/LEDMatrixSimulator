@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TMPHTEEITEU</title>
+<script type="text/javascript">
+window.addEventListener('load', eventWindowLoaded, false);
+function eventWindowLoaded() {
+   canvasApp();
+}
+function canvasSupport () {
+     return true;
+}
+
+function hero(){
+    this.x = 2;
+	this.y = 6;
+	this.width = 20;
+	this.height = 20;
+	this.checkCollision = function(){
+		var x = 0;
+		for(var i = this.mapOffset; i < this.mapOffset+screenWidth; i++){
+			for(var j = 0; j < screenHeight; j++){
+				if(this.map[i][j]==1)
+					context.fillRect(x*this.boxWidth, (screenWidth-j)*this.boxHeight, this.boxWidth, this.boxHeight);
+			}
+			x++;
+		}
+	}
+	
+	this.update = function(){
+		
+	}
+	
+	this.draw = function(context){
+		context.fillStyle = '#aa4444';
+		context.fillRect(this.x*this.width, this.y*this.height, this.width, this.height);
+	}
+}
+
+var objects = new Array();
+var hero = new hero();
+var screenWidth = 8;
+var screenHeight = 8;
+var map;
+
+function canvasApp(){
+if (!canvasSupport()) {
+          return;
+     }else{
+		map = new map();
+		drawScreen();
+   }
+}
+
+function map(){
+	this.mapOffset = 0;
+	this.boxWidth = 20;
+	this.boxHeight = 20;
+	this.map = [
+		[0,0,0,0,0,0,0,1],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,1,1,0],
+		[1,0,0,0,0,1,1,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,1,0,0,0,0],
+		[0,0,0,0,0,0,0,1],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,1,1,0],
+		[1,0,0,0,0,1,1,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,1,0,0,0,0],
+		[0,0,0,0,0,0,0,1],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,1,1,0],
+		[1,0,0,0,0,1,1,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,1,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,1,0,0,0,0]
+	];
+	
+	this.draw = function(context){
+		context.fillStyle = '#22aa22';
+		var x = 0;
+		for(var i = this.mapOffset; i < this.mapOffset+screenWidth; i++){
+			for(var j = 0; j < screenHeight; j++){
+				if(this.map[i][j]==1)
+					context.fillRect(x*this.boxWidth, (screenWidth-j)*this.boxHeight, this.boxWidth, this.boxHeight);
+			}
+			x++;
+		}
+	}
+}
+
+function drawScreen(){
+	var theCanvas = document.getElementById("canvas");
+    var context = theCanvas.getContext("2d");
+	context.clearRect(0, 0, 200, 200);
+	
+	map.draw(context);
+	map.mapOffset++;
+	
+	hero.update();
+	hero.draw(context);
+	var t = setTimeout("drawScreen()", 400);
+}
+</script>
+</head>
+<body>
+<div>The Most Powerful Hero That Ever Existed In The Entire Universe</div>
+<div style="position: absolute; top: 50px; left: 50px;">
+<canvas id="canvas" width="200" height="200" style="border:solid 2px #000000">
+ Your browser does not support HTML5 Canvas.
+</canvas>
+</div>
+</body>
+</html>
